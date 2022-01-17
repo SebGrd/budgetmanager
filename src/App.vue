@@ -6,11 +6,14 @@
             :default-active="activeIndex"
             class="el-menu-demo"
             mode="horizontal"
-            @select="handleSelect"
             router>
-          <el-menu-item index="1" :route="{ name: 'Home'}">Home</el-menu-item>
-          <el-menu-item index="2" :route="{ name: 'Incomes'}">Incomes</el-menu-item>
-          <el-menu-item index="3" :route="{ name: 'Spendings'}">Spendings</el-menu-item>
+          <el-menu-item
+              v-for="(route, index) in routes"
+              :key="index"
+              :index="index.toString()"
+              :route="route">
+            {{ route.name }}
+          </el-menu-item>
         </el-menu>
       </el-header>
       <el-main>
@@ -24,17 +27,15 @@
 
 export default {
   name: 'App',
-  data() {
-    return {
-      activeIndex: '1',
-      activeIndex2: '1'
-    };
+  computed: {
+    routes() {
+      const routes = this.$router.getRoutes();
+      return routes.filter((route) => route.meta.header === true);
+    },
+    activeIndex() {
+      return this.routes.findIndex((route) => route.name === this.$route.name).toString();
+    },
   },
-  methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    }
-  }
 }
 </script>
 
