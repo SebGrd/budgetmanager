@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Incomes</h1>
+    {{ income }}
     <el-table
         :data="incomes"
         :default-sort = "{prop: 'date', order: 'descending'}"
@@ -33,6 +34,7 @@ export default {
   name: 'Incomes',
   data() {
     return {
+      income: 0,
       incomes: [{
         date: '2016-05-03',
         name: 'Pay check',
@@ -53,5 +55,10 @@ export default {
       return `+ ${value.toString()}€`
     }
   },
+  async mounted() {
+    await this.$store.commit('setIncomes', 2000);
+    this.income = this.$store.state.incomes;
+    console.log(this.income);
+  }
 }
 </script>

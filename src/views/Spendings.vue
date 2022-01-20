@@ -53,9 +53,6 @@ export default {
     };
   },
   methods: {
-    amountFormatter(object, row, value) {
-      return `- ${value.toString()}€`
-    }
   },
 }
 </script>
