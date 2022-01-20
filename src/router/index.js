@@ -34,7 +34,11 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
+
+router.getRoute = (routeName) => {
+  return routes.filter((route) => route.name === routeName);
+}
 
 export default router

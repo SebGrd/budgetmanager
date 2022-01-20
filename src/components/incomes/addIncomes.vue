@@ -1,7 +1,7 @@
 <template>
   <el-dialog
       title="Tips"
-      :visible.sync="dialogVisible"
+      :visible.sync="dialogVisibleSync"
       width="30%">
     <span>This is a message</span>
     <span slot="footer" class="dialog-footer">
