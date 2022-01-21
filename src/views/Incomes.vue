@@ -7,8 +7,8 @@
         </el-button>
       </template>
     </s-title>
-    {{ income }}
-    <add-incomes :dialog-visible.sync="dialogVisible"/>
+    <incomes-table></incomes-table>
+    <add-incomes v-if="dialogVisible" :dialog-visible.sync="dialogVisible"/>
   </div>
 </template>
 
@@ -16,17 +16,18 @@
 
 import AddIncomes from "../components/incomes/addIncomes";
 import STitle from "../components/s-title";
+import IncomesTable from "../components/incomes/incomesTable";
 
 export default {
   name: 'Incomes',
   components: {
+    IncomesTable,
     STitle,
     AddIncomes
   },
   data() {
     return {
       dialogVisible: false,
-      income: 0,
     };
   },
   methods: {
@@ -34,9 +35,5 @@ export default {
       this.dialogVisible = true;
     }
   },
-  async mounted() {
-    await this.$store.commit('setIncomes', 2000);
-    this.income = this.$store.state.incomes;
-  }
 }
 </script>

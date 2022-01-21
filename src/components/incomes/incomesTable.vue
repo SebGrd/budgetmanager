@@ -25,24 +25,14 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "IncomesTable",
-  data() {
-    return {
-      incomes: [{
-        date: '2016-05-03',
-        name: 'Pay check',
-        amount: 1300
-      }, {
-        date: '2016-05-02',
-        name: 'HH',
-        amount: 300
-      }, {
-        date: '2016-05-04',
-        name: 'HAW',
-        amount: 180
-      }],
-    };
+  computed: {
+    ...mapGetters([
+      'incomes'
+    ])
   },
   methods: {
     amountFormatter(object, row, value) {
