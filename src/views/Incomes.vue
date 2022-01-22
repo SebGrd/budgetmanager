@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="incomes">
     <s-title>
       <template #right>
         <el-button type="primary" icon="el-icon-plus" @click="openDialog">
@@ -7,33 +7,26 @@
         </el-button>
       </template>
     </s-title>
-    <el-row :gutter="15">
-      <el-col :span="8">
-        <el-card class="box-card">
-          <div slot="header">
-            <span>Total incomes</span>
-          </div>
-          <div>
-            <strong>{{ totalIncomes }}€</strong>
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header">
-            <span>Best income</span>
-          </div>
-          <div>
-            <strong>{{ bestIncome.amount }}€</strong>
-            <p><small>{{ bestIncome.name }}</small></p>
-          </div>
-        </el-card>
+    <el-row :gutter="20">
+      <el-col :span="24" :lg="8">
+        <el-row :gutter="20">
+          <el-col :span="24" :sm="12" :lg="24">
+            <s-card title="Total incomes" class="incomes__card incomes__card--total">
+              <strong class="incomes__card__number">+{{ totalIncomes }}€</strong>
+            </s-card>
+          </el-col>
+          <el-col :span="24" :sm="12" :lg="24">
+            <s-card title="Best income" class="incomes__card incomes__card--best">
+              <strong class="incomes__card__number">+{{ bestIncome.amount }}€</strong>
+              <small class="incomes__card__sub">{{ bestIncome.name }}</small>
+            </s-card>
+          </el-col>
+        </el-row>
       </el-col>
-      <el-col :span="16">
-        <el-card class="box-card">
-          <div slot="header">
-            <span>Incomes repartition</span>
-          </div>
+      <el-col :span="24" :lg="16">
+        <s-card title="Incomes repartition">
           <incomes-chart></incomes-chart>
-        </el-card>
+        </s-card>
       </el-col>
     </el-row>
     <incomes-table></incomes-table>
@@ -44,14 +37,16 @@
 <script>
 
 import AddIncomes from "../components/incomes/addIncomes";
-import STitle from "../components/s-title";
+import STitle from "../components/sComponents/s-title";
 import IncomesTable from "../components/incomes/incomesTable";
 import IncomesChart from "../components/incomes/incomesChart";
 import {mapGetters} from "vuex";
+import SCard from "../components/sComponents/sCard";
 
 export default {
   name: 'Incomes',
   components: {
+    SCard,
     IncomesChart,
     IncomesTable,
     STitle,
@@ -93,3 +88,20 @@ export default {
   },
 }
 </script>
+
+<style scoped lang="scss">
+.incomes{
+  &__card{
+    &--total{
+      margin-bottom: 20px;
+    }
+    &__number{
+      font-size: 2.3rem;
+    }
+    &__sub{
+      display: block;
+      font-size: 1.2rem;
+    }
+  }
+}
+</style>
