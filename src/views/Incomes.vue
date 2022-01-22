@@ -14,7 +14,16 @@
             <span>Total incomes</span>
           </div>
           <div>
-            <strong>2250€</strong>
+            <strong>{{ totalIncomes }}€</strong>
+          </div>
+        </el-card>
+        <el-card class="box-card">
+          <div slot="header">
+            <span>Best income</span>
+          </div>
+          <div>
+            <strong>{{ bestIncome.amount }}€</strong>
+            <p><small>{{ bestIncome.name }}</small></p>
           </div>
         </el-card>
       </el-col>
@@ -38,6 +47,7 @@ import AddIncomes from "../components/incomes/addIncomes";
 import STitle from "../components/s-title";
 import IncomesTable from "../components/incomes/incomesTable";
 import IncomesChart from "../components/incomes/incomesChart";
+import {mapGetters} from "vuex";
 
 export default {
   name: 'Incomes',
@@ -51,6 +61,30 @@ export default {
     return {
       dialogVisible: false,
     };
+  },
+  computed: {
+    ...mapGetters([
+        'incomes',
+    ]),
+    /**
+     * @return Number
+     */
+    totalIncomes() {
+      if (!this.incomes) return 0;
+      const reducer = (previousValue, currentValue) => currentValue.amount + previousValue;
+      return this.incomes.reduce(reducer, 0)
+    },
+    /**
+     * @returns {{amount: number, name: string}}
+     */
+    bestIncome() {
+      if (!this.incomes) return {
+        amount: 0,
+        name: '-',
+      };
+      console.log(this.incomes);
+      return [...this.incomes].sort((a, b) => a.amount - b.amount).reverse()[0];
+    }
   },
   methods: {
     openDialog() {

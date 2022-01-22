@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "incomesChart",
   data() {
@@ -43,23 +45,21 @@ export default {
           offsetY: 0,
         }
       },
-      series: [
-        {
-          data: [{
-            x: 'Income 1',
-            y: 1200
-          },{
-            x: 'Income 2',
-            y: 300
-          },{
-            x: 'Income 3',
-            y: 190
-          }]
-        }
-      ],
     };
   },
   computed: {
+    ...mapGetters([
+      'incomes',
+    ]),
+    data() {
+      if (!this.incomes) return [];
+      return this.incomes.map((income) => ({x: income.name, y: income.amount}))
+    },
+    series() {
+      return [{
+        data: this.data
+      }];
+    }
   },
   mounted() {
   }
