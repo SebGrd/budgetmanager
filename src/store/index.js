@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+export const store = new Vuex.Store({
   state: {
     incomes:  [{
       id: 0,
@@ -28,6 +27,14 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    INIT_STORE(state) {
+      const storeData = localStorage.getItem('store');
+      if (storeData){
+        this.replaceState(
+            Object.assign(state, JSON.parse(storeData))
+        )
+      }
+    },
     setIncomes (state, incomes) {
       state.incomes = incomes;
     },
@@ -47,3 +54,7 @@ export default new Vuex.Store({
   modules: {
   }
 })
+
+store.subscribe((mutation, state) => {
+  localStorage.setItem('store', JSON.stringify(state));
+});
