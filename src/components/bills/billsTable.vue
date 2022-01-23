@@ -1,7 +1,7 @@
 <template>
   <el-table
       :data="bills"
-      :default-sort="{prop: 'date', order: 'descending'}"
+      :default-sort="{prop: 'amount', order: 'descending'}"
       style="width: 100%">
     <el-table-column
         prop="date"
