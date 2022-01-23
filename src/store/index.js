@@ -50,11 +50,17 @@ export const store = new Vuex.Store({
       }
       commit('addIncome', {...income, id: state.incomes.length});
     },
+    deleteIncome({ commit, state }, incomeId) {
+      const index = state.incomes.findIndex((income) => income.id === incomeId)
+      state.incomes.splice(index, 1);
+      commit('setIncomes', state.incomes);
+    },
   },
   modules: {
   }
 })
 
 store.subscribe((mutation, state) => {
+  console.log('x')
   localStorage.setItem('store', JSON.stringify(state));
 });
