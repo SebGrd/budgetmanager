@@ -8,6 +8,9 @@
         label="Date"
         width="180"
         sortable>
+      <template slot-scope="{ row }">
+        {{ row.date | shortenDate }}
+      </template>
     </el-table-column>
     <el-table-column
         prop="name"
@@ -46,6 +49,16 @@ export default {
     ...mapGetters([
       'incomes'
     ])
+  },
+  filters: {
+    shortenDate(date) {
+      if (isNaN(Date.parse(date))) return '-';
+      const day = new Date(date).getDate();
+      const lastNum = [...day.toString()].reverse()[0]
+      if (lastNum === '1') return `${day}st`
+      if (lastNum === '2') return `${day}nd`
+      return `${day}th`
+    }
   },
   methods: {
     ...mapActions([

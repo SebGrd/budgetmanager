@@ -73,11 +73,10 @@ export default {
      * @returns {{amount: number, name: string}}
      */
     bestIncome() {
-      if (!this.incomes) return {
+      if (!this.incomes.length) return {
         amount: 0,
         name: '-',
       };
-      console.log(this.incomes);
       return [...this.incomes].sort((a, b) => a.amount - b.amount).reverse()[0];
     }
   },

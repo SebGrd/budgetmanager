@@ -4,22 +4,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    incomes:  [{
-      id: 0,
-      date: '2016-05-03',
-      name: 'Pay check',
-      amount: 1300
-    }, {
-      id: 1,
-      date: '2016-05-02',
-      name: 'HH',
-      amount: 300
-    }, {
-      id: 2,
-      date: '2016-05-04',
-      name: 'HAW',
-      amount: 180
-    }]
+    incomes:  []
   },
   getters: {
     incomes: (state) => {
@@ -61,6 +46,5 @@ export const store = new Vuex.Store({
 })
 
 store.subscribe((mutation, state) => {
-  console.log('x')
   localStorage.setItem('store', JSON.stringify(state));
 });
