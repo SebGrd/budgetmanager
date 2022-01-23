@@ -1,6 +1,6 @@
 <template>
   <el-table
-      :data="incomes"
+      :data="bills"
       :default-sort="{prop: 'date', order: 'descending'}"
       style="width: 100%">
     <el-table-column
@@ -44,10 +44,10 @@
 import {mapActions, mapGetters} from "vuex";
 
 export default {
-  name: "IncomesTable",
+  name: "BillsTable",
   computed: {
     ...mapGetters([
-      'incomes'
+      'bills'
     ])
   },
   filters: {
@@ -62,13 +62,13 @@ export default {
   },
   methods: {
     ...mapActions([
-        'deleteIncome'
+        'deleteBill'
     ]),
     amountFormatter(object, row, value) {
-      return `+ ${value.toString()}€`
+      return `- ${value.toString()}€`
     },
     delIncome(incomeId){
-      this.deleteIncome(incomeId);
+      this.deleteBill(incomeId);
     }
   },
 }
