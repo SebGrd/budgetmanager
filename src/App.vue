@@ -40,6 +40,10 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+body {
+  font-family: 'Mali', cursive;
+}
 #app {
 }
 </style>

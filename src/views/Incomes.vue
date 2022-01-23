@@ -24,12 +24,14 @@
         </el-row>
       </el-col>
       <el-col :span="24" :lg="16">
-        <s-card title="Incomes repartition">
+        <s-card title="Incomes repartition" class="incomes__chart">
           <incomes-chart></incomes-chart>
         </s-card>
       </el-col>
     </el-row>
-    <incomes-table></incomes-table>
+    <s-card>
+      <incomes-table></incomes-table>
+    </s-card>
     <add-incomes v-if="dialogVisible" :dialog-visible.sync="dialogVisible"/>
   </div>
 </template>
@@ -91,16 +93,18 @@ export default {
 <style scoped lang="scss">
 .incomes{
   &__card{
-    &--total{
-      margin-bottom: 20px;
-    }
+    margin-bottom: 1.1rem;
     &__number{
-      font-size: 2.3rem;
+      font-size: 2rem;
+      color: forestgreen;
     }
     &__sub{
       display: block;
       font-size: 1.2rem;
     }
+  }
+  &__chart{
+    margin-bottom: 1rem;
   }
 }
 </style>
