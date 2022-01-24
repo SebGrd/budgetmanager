@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+import { _t } from "../validators/types";
+
 function deleteById(array, id) {
   const index = array.findIndex((obj) => obj.id === id)
   array.splice(index, 1);
@@ -44,22 +46,20 @@ export const store = new Vuex.Store({
   },
   actions: {
     addIncome({ commit, state }, income) {
-      // @todo make validation file
-      if (!income || typeof income !== 'object' || !income.amount || !income.name.length) {
-        throw new Error('Validation error');
+      const newIncome = {...income, id: state.incomes.length};
+      if (_t('Income').isValid(newIncome)) {
+        commit('addIncome', newIncome);
       }
-      commit('addIncome', {...income, id: state.incomes.length});
     },
     deleteIncome({ commit, state }, incomeId) {
       deleteById(state.incomes, incomeId);
       commit('setIncomes', state.incomes);
     },
     addBill({ commit, state }, bill) {
-      // @todo make validation file
-      if (!bill || typeof bill !== 'object' || !bill.amount || !bill.name.length) {
-        throw new Error('Validation error');
+      const newBill = {...bill, id: state.bills.length};
+      if (_t('Income').isValid(newBill)) {
+        commit('addBill', newBill);
       }
-      commit('addBill', {...bill, id: state.bills.length});
     },
     deleteBill({ commit, state }, billId) {
       deleteById(state.bills, billId);

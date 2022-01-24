@@ -34,7 +34,7 @@
         v-show="errorDisplayed"
         icon="error"
         title="Error"
-        :subTitle="errorMessage">
+        :subTitle="errorMessage.toString()">
       <template #extra>
         <el-button @click="resetDisplay">Back to the form</el-button>
       </template>
@@ -97,6 +97,7 @@ export default {
           this.showSuccess();
         } catch (e) {
           this.errorMessage = e;
+          console.log(e);
           this.showError()
         }
       }
