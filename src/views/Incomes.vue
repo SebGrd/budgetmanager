@@ -94,6 +94,16 @@ export default {
 .incomes{
   &__card{
     margin-bottom: 1.1rem;
+    &--total{
+      .incomes__card__number{
+        font-size: 2.4rem;
+      }
+    }
+    &--best{
+      .incomes__card__number{
+        font-size: 1.5rem;
+      }
+    }
     &__number{
       font-size: 2rem;
       color: forestgreen;

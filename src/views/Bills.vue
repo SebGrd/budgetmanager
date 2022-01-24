@@ -94,6 +94,16 @@ export default {
 .bills{
   &__card{
     margin-bottom: 1.1rem;
+    &--total{
+      .bills__card__number{
+        font-size: 2.4rem;
+      }
+    }
+    &--best{
+      .bills__card__number{
+        font-size: 1.5rem;
+      }
+    }
     &__number{
       font-size: 2rem;
       color: darkred;

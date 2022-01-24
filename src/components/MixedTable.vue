@@ -1,6 +1,6 @@
 <template>
   <el-table
-      :data="incomes"
+      :data="mixedData"
       :default-sort="{prop: 'amount', order: 'descending'}"
       style="width: 100%">
     <el-table-column
@@ -21,34 +21,31 @@
     <el-table-column
         prop="amount"
         label="Amount"
-        :formatter="amountFormatter"
         sortable>
-    </el-table-column>
-    <el-table-column
-        fixed="right"
-        label="Operations"
-        width="120">
       <template slot-scope="{ row }">
-        <el-button
-            icon="el-icon-delete"
-            type="danger"
-            size="mini"
-            circle
-            @click="delIncome(row.id)"></el-button>
+        <span :class="{in: (row.type === 'income'), out: (row.type === 'bill')}">
+          {{ amountFormatter(row) }}
+        </span>
       </template>
     </el-table-column>
   </el-table>
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
+import {mapGetters} from "vuex";
 
 export default {
-  name: "IncomesTable",
+  name: "MixedTable",
   computed: {
     ...mapGetters([
-      'incomes'
-    ])
+      'incomes',
+      'bills'
+    ]),
+    mixedData() {
+      const incomes = this.incomes.map((income) => ({...income, type: 'income'}))
+      const bills = this.bills.map((bill) => ({...bill, type: 'bill'}))
+      return [...incomes, ...bills];
+    },
   },
   filters: {
     shortenDate(date) {
@@ -61,15 +58,23 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-        'deleteIncome'
-    ]),
-    amountFormatter(object, row, value) {
-      return `+ ${value.toString()}€`
+    amountFormatter(object) {
+      if (object.type === 'income') return `+ ${object.amount.toString()}€`
+      if (object.type === 'bill') return `- ${object.amount.toString()}€`
+      return object.amount;
     },
-    delIncome(incomeId){
-      this.deleteIncome(incomeId);
-    }
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.in, .out{
+  font-weight: 600;
+}
+.in{
+  color: forestgreen;
+}
+.out{
+  color: darkred;
+}
+</style>

@@ -1,21 +1,40 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
-    <el-timeline>
-      <el-timeline-item
-          v-for="(activity, index) in activities"
-          :key="index"
-          :timestamp="activity.timestamp">
-        {{activity.content}}
-      </el-timeline-item>
-    </el-timeline>
+    <s-title title="Home"></s-title>
+    <el-row :gutter="15">
+      <el-col :span="12">
+        <el-timeline>
+          <el-timeline-item
+              v-for="(activity, index) in activities"
+              :key="index"
+              :timestamp="activity.timestamp">
+            {{activity.content}}
+          </el-timeline-item>
+        </el-timeline>
+      </el-col>
+      <el-col :span="12">
+        <s-card title="Money left" class="card">
+          <strong class="card__number">705€</strong>
+        </s-card>
+        <s-card title="Repartition">
+
+        </s-card>
+      </el-col>
+    </el-row>
+    <s-card>
+      <mixed-table></mixed-table>
+    </s-card>
   </div>
 </template>
 
 <script>
 
+import MixedTable from "../components/MixedTable";
+import SCard from "../components/sComponents/sCard";
+import STitle from "../components/sComponents/s-title";
 export default {
   name: 'Home',
+  components: {STitle, SCard, MixedTable},
   data() {
     return {
       activities: [{
@@ -32,3 +51,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.card__number{
+  font-size: 2.5rem;
+}
+</style>
